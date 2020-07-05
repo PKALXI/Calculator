@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="calculator-grid">
+            <div class="output">
+                <div data-previousOperand class="previous-operand"></div>
+                <div data-currentOperand id = 'hi' class="hi"></div>
+            </div>
+            <button onclick="emptyScreen()" class="span-two" >all clear</button>
+            <button >delete</button>
+            <button onclick="clickedOperation('/')">÷</button>
+            <button onclick="clickedNumber(1)">1</button>
+            <button onclick="clickedNumber(2)">2</button>
+            <button onclick="clickedNumber(3)">3</button>
+            <button onclick="clickedOperation('*')">*</button>
+            <button onclick="clickedNumber(4)">4</button>
+            <button onclick="clickedNumber(5)">5</button>
+            <button onclick="clickedNumber(6)">6</button>
+            <button onclick="clickedOperation('+')">+</button>
+            <button onclick="clickedNumber(7)">7</button>
+            <button onclick="clickedNumber(8)">8</button>
+            <button onclick="clickedNumber(9)">9</button>
+            <button onclick="clickedOperation('-')">-</button>
+            <button onclick="clickedNumber(0)">.</button>
+            <button onclick="clickedNumber(0)">0</button>
+            <button onclick="findAnswer()" class="span-two">=</button>
+        </div>
+    </body>
+</html>
