@@ -16,6 +16,32 @@ function clickedNumber(num){
         updateSecondary(firstNumber + operation);
     }
 
+    var o = ""; 
+    var ss = document.getElementById("previous-operand").innerHTML;
+
+    for(var i = 0; i < ss.length; i++){
+        var b = false;
+        for(var j = 0; j < 4; j++){
+            if(ss[i] === operations[j]){
+                o = operations[j];
+                b = true;
+                break;
+            }
+        }
+        if(bool){
+            break;
+        }
+    }
+
+    if(!(o === "")){
+        console.log(true);
+        var sp = ss.split(o);
+
+        if(!(sp[1] === "")){
+            emptyScreen();
+        }
+    }
+
     ret += num;
     updateScreen();
 }
