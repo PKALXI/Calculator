@@ -38,7 +38,8 @@ function clickedNumber(num){
         var sp = ss.split(o);
 
         if(!(sp[1] === "")){
-            emptyScreen();
+            updateSecondary("Last Ans: " + ret);
+            emptyScreen(false);
         }
     }
 
@@ -132,13 +133,15 @@ function deleteC(){
     updateScreen();
 }
 
-function emptyScreen(){
+function emptyScreen(bool){
     firstNumber = "";
     secondNumber = "";
     operation = "";
     ret = "";
     document.getElementById("hi").innerHTML = "";
-    document.getElementById("previous-operand").innerHTML = "";
+    if(bool){
+        document.getElementById("previous-operand").innerHTML = "";
+    }
 }
 
 function addDecimal(){
