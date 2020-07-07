@@ -1,14 +1,20 @@
 var firstNumber;
+var tempStore = "";
 var secondNumber;
 var ret = "";
 var operation;
 var operations = ["*", "/", "+", "-", "SYNTAX ERROR", "undefined"];
 
 function clickedNumber(num){
+    var bool = false;
     if (operations.indexOf(ret) >= 0) {
         clearScreen();
+        bool = true;
     }
 
+    if (bool && (!(operation===("SYNTAX ERROR")))) {
+        updateSecondary(firstNumber + operation);
+    }
 
     ret += num;
     updateScreen();
@@ -19,9 +25,12 @@ function clickedOperation(oper){
         ret = "SYNTAX ERROR";
         updateScreen();
         return; 
-    }else{
+    }else if(tempStore != ""){
+        firstNumber = tempStore;
+        tempStore = "";
+    }
+    else{
         firstNumber = ret;
-        
     }
     if(oper == "*"){
         operation = "*";
@@ -34,11 +43,9 @@ function clickedOperation(oper){
     }
 
     ret = operation
+
     updateScreen();
-}
-
-function format(operation){
-
+    updateSecondary(firstNumber);
 }
 
 function findAnswer(){
@@ -46,24 +53,57 @@ function findAnswer(){
 
     ret = "";
 
-    if(operation == "*"){
-        answer = parseInt(firstNumber) * parseInt(secondNumber);
-    }else if(operation == "/"){
-        answer = parseInt(firstNumber) / parseInt(secondNumber);
-    }else if(operation == "-"){
-        answer = parseInt(firstNumber) - parseInt(secondNumber);
+    var fn;
+    var sn;
+
+    if(firstNumber.includes(".") || secondNumber.includes(".")){
+        fn = parseFloat(firstNumber);
+        sn = parseFloat(secondNumber);
     }else{
-        answer = parseInt(firstNumber) + parseInt(secondNumber);
+        fn = parseInt(firstNumber);
+        sn = parseInt(secondNumber);
+    }
+
+    if(operation == "*"){
+        answer = fn * sn;
+    }else if(operation == "/"){
+        answer = fn / sn;
+    }else if(operation == "-"){
+        answer = fn - sn;
+    }else{
+        answer = fn + sn;
     }
 
     ret += answer; 
 
+    if(ret == 'NaN'){
+        ret = "";
+    }
+
     updateScreen();
+    updateSecondary(firstNumber + operation + secondNumber);
 }
 
 function clearScreen(){
     ret = "";
     document.getElementById("hi").innerHTML = "";
+}
+
+function deleteC(){
+    if(!(operations.indexOf(ret) >= 0)){
+        try{
+            ret = ret.substring(0, ret.length-1);
+        }catch(err){
+            ret = "";
+        }
+    }else if (!(ret == 'SYNTAX ERROR')){
+        tempStore = firstNumber;
+        operation = "";
+        clearScreen();
+    }else{
+        ret = "";   
+    }
+    updateScreen();
 }
 
 function emptyScreen(){
@@ -72,8 +112,20 @@ function emptyScreen(){
     operation = "";
     ret = "";
     document.getElementById("hi").innerHTML = "";
+    document.getElementById("previous-operand").innerHTML = "";
+}
+
+function addDecimal(){
+    if(!(toString(ret).includes("."))){
+        ret += ".";
+    }
+    updateScreen();
 }
 
 function updateScreen(){
     document.getElementById("hi").innerHTML = ret;
+}
+
+function updateSecondary(text){
+    document.getElementById("previous-operand").innerHTML = text;
 }
